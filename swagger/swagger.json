@@ -1,148 +1,442 @@
 {
-  "swagger": "2.0",
+  "openapi": "3.0.0",
   "info": {
     "title": "puppet adoption API",
     "description": "API that allow CRUD operations for puppets and owners of puppets",
     "version": "1.0.0"
   },
-  "host": "localhost:3000",
-  "basePath": "/",
-  "schemes": [
-    "http"
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "local endpoint, test data"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Puppets",
+      "description": "Operations related to puppets"
+    },
+    {
+      "name": "Owners",
+      "description": "Operations related to owners"
+    }
   ],
   "paths": {
     "/puppets/": {
       "get": {
-        "description": "",
+        "tags": [
+          "Puppets"
+        ],
+        "summary": "Get all puppets",
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "A list of puppets",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Puppet"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No puppets found"
+          },
+          "500": {
+            "description": "Error getting puppets"
           }
         }
       },
       "post": {
-        "description": "",
+        "tags": [
+          "Puppets"
+        ],
+        "summary": "Create a new puppet",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Puppet"
+              }
+            }
+          }
+        },
         "responses": {
-          "default": {
-            "description": ""
+          "201": {
+            "description": "Puppet created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Puppet"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error creating the puppet"
           }
         }
       }
     },
     "/puppets/{id}": {
       "get": {
-        "description": "",
+        "tags": [
+          "Puppets"
+        ],
+        "summary": "Get a puppet by ID",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Puppet found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Puppet"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Puppet not found"
+          },
+          "500": {
+            "description": "Error getting the puppet"
           }
         }
       },
       "put": {
-        "description": "",
+        "tags": [
+          "Puppets"
+        ],
+        "summary": "Update a puppet by ID",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Puppet"
+              }
+            }
+          }
+        },
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "Puppet updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Puppet"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Puppet not found"
+          },
+          "500": {
+            "description": "Error updating the puppet"
           }
         }
       },
       "delete": {
-        "description": "",
+        "tags": [
+          "Puppets"
+        ],
+        "summary": "Delete a puppet by ID",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "204": {
+            "description": "Puppet deleted successfully"
+          },
+          "404": {
+            "description": "Puppet not found"
+          },
+          "500": {
+            "description": "Error deleting the puppet"
           }
         }
       }
     },
     "/owners/": {
       "get": {
-        "description": "",
+        "tags": [
+          "Owners"
+        ],
+        "summary": "Get all owners",
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "A list of owners",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Owner"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No owners found"
+          },
+          "500": {
+            "description": "Error getting owners"
           }
         }
       },
       "post": {
-        "description": "",
+        "tags": [
+          "Owners"
+        ],
+        "summary": "Create a new owner",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Owner"
+              }
+            }
+          }
+        },
         "responses": {
-          "default": {
-            "description": ""
+          "201": {
+            "description": "Owner created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Owner"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error creating the owner"
           }
         }
       }
     },
     "/owners/{id}": {
       "get": {
-        "description": "",
+        "tags": [
+          "Owners"
+        ],
+        "summary": "Get an owner by ID",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "Owner found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Owner"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Owner not found"
+          },
+          "500": {
+            "description": "Error getting the owner"
           }
         }
       },
       "put": {
-        "description": "",
+        "tags": [
+          "Owners"
+        ],
+        "summary": "Update an owner by ID",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Owner"
+              }
+            }
+          }
+        },
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "Owner updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Owner"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Owner not found"
+          },
+          "500": {
+            "description": "Error updating the owner"
           }
         }
       },
       "delete": {
-        "description": "",
+        "tags": [
+          "Owners"
+        ],
+        "summary": "Delete an owner by ID",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "204": {
+            "description": "Owner deleted successfully"
+          },
+          "404": {
+            "description": "Owner not found"
+          },
+          "500": {
+            "description": "Error deleting the owner"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Puppet": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "cliford"
+          },
+          "age": {
+            "type": "number",
+            "example": 2
+          },
+          "race": {
+            "type": "string",
+            "example": "Pitbull"
+          },
+          "breed": {
+            "type": "string"
+          },
+          "color": {
+            "type": "string",
+            "example": "brown"
+          },
+          "ownerId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "Owner": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Pedro"
+          },
+          "age": {
+            "type": "number",
+            "example": 40
+          },
+          "lastName": {
+            "type": "string",
+            "example": "josefo"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "pedrojosefo@gmail.com"
+          },
+          "phoneNumber": {
+            "type": "string",
+            "example": "+584245558896"
+          },
+          "address": {
+            "type": "object",
+            "properties": {
+              "street": {
+                "type": "string"
+              },
+              "city": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "zip": {
+                "type": "string"
+              }
+            }
+          },
+          "city": {
+            "type": "string"
+          },
+          "puppets": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
           }
         }
       }
