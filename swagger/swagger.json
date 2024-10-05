@@ -9,6 +9,10 @@
     {
       "url": "http://localhost:3000",
       "description": "local endpoint, test data"
+    },
+    {
+      "url": "https://cse341-project2-0lo7.onrender.com",
+      "description": "RENDER endpoint, testing server"
     }
   ],
   "tags": [
@@ -24,9 +28,7 @@
   "paths": {
     "/puppets/": {
       "get": {
-        "tags": [
-          "Puppets"
-        ],
+        "tags": ["Puppets"],
         "summary": "Get all puppets",
         "responses": {
           "200": {
@@ -51,9 +53,7 @@
         }
       },
       "post": {
-        "tags": [
-          "Puppets"
-        ],
+        "tags": ["Puppets"],
         "summary": "Create a new puppet",
         "requestBody": {
           "required": true,
@@ -84,9 +84,7 @@
     },
     "/puppets/{id}": {
       "get": {
-        "tags": [
-          "Puppets"
-        ],
+        "tags": ["Puppets"],
         "summary": "Get a puppet by ID",
         "parameters": [
           {
@@ -118,9 +116,7 @@
         }
       },
       "put": {
-        "tags": [
-          "Puppets"
-        ],
+        "tags": ["Puppets"],
         "summary": "Update a puppet by ID",
         "parameters": [
           {
@@ -162,9 +158,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "Puppets"
-        ],
+        "tags": ["Puppets"],
         "summary": "Delete a puppet by ID",
         "parameters": [
           {
@@ -191,9 +185,7 @@
     },
     "/owners/": {
       "get": {
-        "tags": [
-          "Owners"
-        ],
+        "tags": ["Owners"],
         "summary": "Get all owners",
         "responses": {
           "200": {
@@ -218,9 +210,7 @@
         }
       },
       "post": {
-        "tags": [
-          "Owners"
-        ],
+        "tags": ["Owners"],
         "summary": "Create a new owner",
         "requestBody": {
           "required": true,
@@ -251,9 +241,7 @@
     },
     "/owners/{id}": {
       "get": {
-        "tags": [
-          "Owners"
-        ],
+        "tags": ["Owners"],
         "summary": "Get an owner by ID",
         "parameters": [
           {
@@ -285,9 +273,7 @@
         }
       },
       "put": {
-        "tags": [
-          "Owners"
-        ],
+        "tags": ["Owners"],
         "summary": "Update an owner by ID",
         "parameters": [
           {
@@ -329,9 +315,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "Owners"
-        ],
+        "tags": ["Owners"],
         "summary": "Delete an owner by ID",
         "parameters": [
           {
