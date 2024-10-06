@@ -25,8 +25,22 @@ const getAllPuppets = async (req, res, next) => {
 };
 
 const getPuppetById = async (req, res, next) => {
-  const puppet = await puppetService.getPuppetById(req.params.id);
-  res.status(200).json(puppet);
+  try {
+    const puppet = await puppetService.getAllPuppets(req.params.id);
+    if (!puppet) {
+      return next(
+        createError(httpStatus.NOT_FOUND, "No puppets found in the database"),
+      );
+    }
+    res.status(httpStatus.OK).json(puppet);
+  } catch (error) {
+    return next(
+      createError(
+        httpStatus.SERVER_ERROR,
+        error.message || "Error getting puppet",
+      ),
+    );
+  }
 };
 
 const createPuppet = async (req, res, next) => {
