@@ -26,7 +26,7 @@ const getAllPuppets = async (req, res, next) => {
 
 const getPuppetById = async (req, res, next) => {
   try {
-    const puppet = await puppetService.getAllPuppets(req.params.id);
+    const puppet = await puppetService.getPuppetById(req.params.id);
     if (!puppet) {
       return next(
         createError(httpStatus.NOT_FOUND, "No puppets found in the database"),
