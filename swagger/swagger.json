@@ -23,6 +23,10 @@
     {
       "name": "Owners",
       "description": "Operations related to owners"
+    },
+    {
+      "name": "Authentication",
+      "description": "Operations related with authentication workflows"
     }
   ],
   "paths": {
@@ -55,6 +59,11 @@
       "post": {
         "tags": ["Puppets"],
         "summary": "Create a new puppet",
+        "security": [
+          {
+            "oauth2": ["puppets:write"]
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -72,6 +81,22 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Puppet"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "You dont have permission to access this resource"
+                    }
+                  }
                 }
               }
             }
@@ -118,6 +143,11 @@
       "put": {
         "tags": ["Puppets"],
         "summary": "Update a puppet by ID",
+        "security": [
+          {
+            "oauth2": ["puppets:write"]
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -149,6 +179,22 @@
               }
             }
           },
+          "401": {
+            "description": "Authorization error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "You dont have permission to access this resource"
+                    }
+                  }
+                }
+              }
+            }
+          },
           "404": {
             "description": "Puppet not found"
           },
@@ -160,6 +206,11 @@
       "delete": {
         "tags": ["Puppets"],
         "summary": "Delete a puppet by ID",
+        "security": [
+          {
+            "oauth2": ["puppets:write"]
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -173,6 +224,22 @@
         "responses": {
           "204": {
             "description": "Puppet deleted successfully"
+          },
+          "401": {
+            "description": "Authorization error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "You dont have permission to access this resource"
+                    }
+                  }
+                }
+              }
+            }
           },
           "404": {
             "description": "Puppet not found"
@@ -212,6 +279,11 @@
       "post": {
         "tags": ["Owners"],
         "summary": "Create a new owner",
+        "security": [
+          {
+            "oauth2": ["puppets:write"]
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -229,6 +301,22 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Owner"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "You dont have permission to access this resource"
+                    }
+                  }
                 }
               }
             }
@@ -275,6 +363,11 @@
       "put": {
         "tags": ["Owners"],
         "summary": "Update an owner by ID",
+        "security": [
+          {
+            "oauth2": ["puppets:write"]
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -306,6 +399,22 @@
               }
             }
           },
+          "401": {
+            "description": "Authorization error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "You dont have permission to access this resource"
+                    }
+                  }
+                }
+              }
+            }
+          },
           "404": {
             "description": "Owner not found"
           },
@@ -317,6 +426,11 @@
       "delete": {
         "tags": ["Owners"],
         "summary": "Delete an owner by ID",
+        "security": [
+          {
+            "oauth2": ["puppets:write"]
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -331,6 +445,22 @@
           "204": {
             "description": "Owner deleted successfully"
           },
+          "401": {
+            "description": "Authorization error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "You dont have permission to access this resource"
+                    }
+                  }
+                }
+              }
+            }
+          },
           "404": {
             "description": "Owner not found"
           },
@@ -338,6 +468,26 @@
             "description": "Error deleting the owner"
           }
         }
+      }
+    },
+    "/auth/logout": {
+      "get": {
+        "tags": ["Authentication"],
+        "summary": "Close user session",
+        "responses": {
+          "200": {
+            "description": "Print session status"
+          },
+          "500": {
+            "description": "Throw error"
+          }
+        }
+      }
+    },
+    "/auth/github": {
+      "get": {
+        "tags": ["Authentication"],
+        "summary": "Authenticate using github"
       }
     }
   },
@@ -421,6 +571,21 @@
               "type": "string",
               "format": "uuid"
             }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "oauth2": {
+        "type": "oauth2",
+        "description": "This API uses OAuth 2 with the authorizationCode flow",
+        "flows": {
+          "authorizationCode": {
+            "authorizationUrl": "http://localhost:3000/auth/github/callback"
+          },
+          "scopes": {
+            "puppets:write": "write operations on puppets",
+            "owners:write": "write operations on owners"
           }
         }
       }
