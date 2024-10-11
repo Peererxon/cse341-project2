@@ -31,7 +31,8 @@ passport.use(
     {
       clientID: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
-      CALLBACK_URL: "http://localhost:3000/auth/github/callback",
+      CALLBACK_URL:
+        "https://cse341-project2-0lo7.onrender.com/:3000/auth/github/callback",
     }, // Callback function
     (accessToken, refreshToken, profile, done) => done(null, profile),
   ),
